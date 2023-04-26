@@ -1,9 +1,9 @@
-package ru.kata.spring.boot_security.demo.service;
+package ru.kata.spring.boot_security.demo.service.impl;
 
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
-import ru.kata.spring.boot_security.demo.service.inter.RoleService;
+import ru.kata.spring.boot_security.demo.service.RoleService;
 
 import java.util.List;
 

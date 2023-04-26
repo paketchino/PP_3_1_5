@@ -103,9 +103,9 @@ public class User implements UserDetails {
         return password;
     }
 
-    public String getShortRole() {
-        return roles.toString().substring(1, roles.toString().length() - 1);
-    }
+//    public String getShortRole() {
+//        return roles.toString().substring(1, roles.toString().length() - 1);
+//    }
 
     @Override
     public boolean isAccountNonExpired() {

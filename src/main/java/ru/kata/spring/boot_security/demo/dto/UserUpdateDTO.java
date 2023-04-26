@@ -2,13 +2,9 @@ package ru.kata.spring.boot_security.demo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import ru.kata.spring.boot_security.demo.models.Role;
-
 import java.util.Collection;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -72,10 +68,9 @@ public class UserUpdateDTO {
         return password;
     }
 
-    public String getShortRole() {
-        return roles.toString().substring(1, roles.toString().length() - 1);
-    }
-
+//    public String getShortRole() {
+//        return roles.toString().substring(1, roles.toString().length() - 1);
+//    }
 
     public void setPassword(String password) {
         this.password = password;

@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.service;
+package ru.kata.spring.boot_security.demo.service.impl;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,11 +6,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
-import ru.kata.spring.boot_security.demo.service.inter.UserService;
+import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.transaction.Transactional;
 import java.util.*;
@@ -19,6 +18,7 @@ import java.util.*;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     private final RoleRepository roleRepository;
@@ -58,7 +58,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void update(Long id, User updateUser) {
         updateUser.setId(id);
-        updateUser.setPassword(passwordEncoder.encode(updateUser.getPassword()));
+        if (updateUser.getPassword().startsWith("$2a$") && (updateUser.getPassword().length() > 15)) {
+            updateUser.setPassword(updateUser.getPassword());
+        } else {
+            updateUser.setPassword(passwordEncoder.encode(updateUser.getPassword()));
+        }
         userRepository.save(updateUser);
     }
 

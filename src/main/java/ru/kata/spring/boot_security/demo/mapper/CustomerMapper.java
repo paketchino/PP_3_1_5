@@ -27,6 +27,8 @@ public class CustomerMapper implements Mapper {
     @Override
     public RoleDTO convertTo(Role role) {
         RoleDTO roleDTO = new RoleDTO();
+        roleDTO.setId(role.getId());
+        roleDTO.setName(role.getName());
         return roleDTO;
     }
 

@@ -3,7 +3,15 @@ editUser();
 
 async function editModalData(id) {
     const modal = new bootstrap.Modal(document.querySelector('#editModal'));
-    await fillModalWithUserData(formEdit, modal, id);
+    modal.show();
+    let user = await getUserId(id);
+    formEdit.id.value = user.id;
+    formEdit.username.value = user.username;
+    formEdit.lastName.value = user.lastName;
+    formEdit.age.value = user.age;
+    formEdit.email.value = user.email;
+    formEdit.password.value = user.password;
+    formEdit.roles.value = user.roles;
     loadRoles();
 }
 
@@ -34,7 +42,7 @@ function editUser() {
         }).then(() => {
             $('#editFormCloseButton').click();
             userTable();
-        });
+        }).catch(error => console.error(error));
     });
 }
 

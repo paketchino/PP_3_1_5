@@ -10,8 +10,8 @@ import ru.kata.spring.boot_security.demo.dto.UserUpdateDTO;
 import ru.kata.spring.boot_security.demo.mapper.Mapper;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.service.inter.RoleService;
-import ru.kata.spring.boot_security.demo.service.inter.UserService;
+import ru.kata.spring.boot_security.demo.service.RoleService;
+import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -35,10 +35,7 @@ public class AdminRestController {
     public ResponseEntity<List<UserDTO>> showAllUser() {
         return new ResponseEntity<>(
                 userService.findAll()
-                .stream().map(user -> new UserDTO(user.getId(),
-                                user.getUsername(), user.getLastName(),
-                                user.getAge(), user.getEmail(),
-                                (Set<Role>) user.getRoles()))
+                .stream().map(mapper::convertTo)
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 
@@ -47,7 +44,7 @@ public class AdminRestController {
         return new ResponseEntity<>(
                 roleService.getAllRoles()
                         .stream()
-                        .map(role -> new RoleDTO(role.getId(), role.getAuthority()))
+                        .map(mapper::convertTo)
                         .collect(Collectors.toList()), HttpStatus.OK);
     }
 
@@ -59,9 +56,9 @@ public class AdminRestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserId(@PathVariable("id") Long id) {
+    public ResponseEntity<UserUpdateDTO> getUserId(@PathVariable("id") Long id) {
         User byId = userService.findById(id);
-        return new ResponseEntity<>(mapper.convertTo(byId), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.convertToUpdate(byId), HttpStatus.OK);
     }
 
     @PostMapping
