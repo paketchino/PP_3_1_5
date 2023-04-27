@@ -54,12 +54,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .findFirst().orElseThrow();
     }
 
+    /**
+     *    if (updateUser.getPassword().startsWith("$2a$") && (updateUser.getPassword().length() > 15)) {
+     *           updateUser.setPassword(updateUser.getPassword());
+     *    } else {
+     *          updateUser.setPassword(passwordEncoder.encode(updateUser.getPassword()));
+     *    }
+     * @param id
+     * @param updateUser
+     */
+
     @Transactional
     @Override
     public void update(Long id, User updateUser) {
         updateUser.setId(id);
-        if (updateUser.getPassword().startsWith("$2a$") && (updateUser.getPassword().length() > 15)) {
-            updateUser.setPassword(updateUser.getPassword());
+        User oldUserById = findById(id);
+        if (updateUser.getPassword().isBlank()) {
+            updateUser.setPassword(oldUserById.getPassword());
         } else {
             updateUser.setPassword(passwordEncoder.encode(updateUser.getPassword()));
         }

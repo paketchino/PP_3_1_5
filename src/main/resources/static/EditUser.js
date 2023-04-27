@@ -10,7 +10,6 @@ async function editModalData(id) {
     formEdit.lastName.value = user.lastName;
     formEdit.age.value = user.age;
     formEdit.email.value = user.email;
-    formEdit.password.value = user.password;
     formEdit.roles.value = user.roles;
     loadRoles();
 }
