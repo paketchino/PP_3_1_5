@@ -17,7 +17,7 @@ async function deleteModalData(id) {
 function deleteUser() {
     formDelete .addEventListener("submit", ev => {
         ev.preventDefault();
-        fetch("http://localhost:8080/admin/" + formDelete .id.value, {
+        fetch("http://localhost:8080/api/admin/" + formDelete.id.value + "/user", {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -33,7 +33,7 @@ function loadRolesDelete() {
     let select = document.getElementById("roleDelete");
     select.innerHTML = "";
 
-    fetch("http://localhost:8080/admin/roles")
+    fetch("http://localhost:8080/api/admin/roles")
         .then(res => res.json())
         .then(data => {
             data.forEach(role => {

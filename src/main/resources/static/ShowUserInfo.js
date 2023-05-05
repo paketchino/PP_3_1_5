@@ -1,7 +1,7 @@
 showUserInfo();
 
 function showUserInfo() {
-    fetch("http://localhost:8080/user/userList")
+    fetch("http://localhost:8080/api/user")
         .then(res => res.json())
         .then(user => {
             console.log('userSata', JSON.stringify(user))

@@ -31,7 +31,7 @@ public class User implements UserDetails {
     private String password;
 
     @Fetch(FetchMode.JOIN)
-    @ManyToMany()
+    @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -102,10 +102,6 @@ public class User implements UserDetails {
     public String getPassword() {
         return password;
     }
-
-//    public String getShortRole() {
-//        return roles.toString().substring(1, roles.toString().length() - 1);
-//    }
 
     @Override
     public boolean isAccountNonExpired() {

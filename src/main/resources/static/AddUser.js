@@ -12,7 +12,7 @@ function addUser() {
             });
         }
 
-        fetch("http://localhost:8080/admin", {
+        fetch("http://localhost:8080/api/admin/create", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ function loadRolesAdd() {
     let select = document.getElementById("roleAdd");
     select.innerHTML = "";
 
-    fetch("http://localhost:8080/admin/roles")
+    fetch("http://localhost:8080/api/admin/roles")
         .then(res => res.json())
         .then(data => {
             data.forEach(role => {

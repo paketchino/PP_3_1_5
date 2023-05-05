@@ -46,7 +46,7 @@ public class PreStart implements ApplicationListener<ContextRefreshedEvent> {
         }
         User regularUser = new User("user", "tester", 22, "user@gmail.com",
                 encoder.encode("password"), role2);
-        if (userRepository.findByEmail(adminUser.getEmail()).isEmpty()) {
+        if (userRepository.findByEmail(regularUser.getEmail()).isEmpty()) {
             userRepository.save(regularUser);
         }
 

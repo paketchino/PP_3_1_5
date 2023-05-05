@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
@@ -21,14 +20,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final RoleRepository roleRepository;
-
     public UserServiceImpl(UserRepository userRepository,
-                           @Lazy PasswordEncoder passwordEncoder,
-                           RoleRepository roleRepository) {
+                           @Lazy PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.roleRepository = roleRepository;
     }
 
     @Transactional
@@ -54,16 +49,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .findFirst().orElseThrow();
     }
 
-    /**
-     *    if (updateUser.getPassword().startsWith("$2a$") && (updateUser.getPassword().length() > 15)) {
-     *           updateUser.setPassword(updateUser.getPassword());
-     *    } else {
-     *          updateUser.setPassword(passwordEncoder.encode(updateUser.getPassword()));
-     *    }
-     * @param id
-     * @param updateUser
-     */
-
     @Transactional
     @Override
     public void update(Long id, User updateUser) {
@@ -79,6 +64,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findByEmail(email).get();
+        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }

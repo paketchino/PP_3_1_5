@@ -24,7 +24,7 @@ function editUser() {
                 role: "ROLE_" + formEdit.roles.options[i].text
             });
         }
-        fetch("http://localhost:8080/admin/" + formEdit.id.value, {
+        fetch("http://localhost:8080/api/admin/" + formEdit.id.value + "/user", {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ function loadRoles() {
     let select = document.getElementById("roleEdit");
     select.innerHTML = "";
 
-    fetch("http://localhost:8080/admin/roles")
+    fetch("http://localhost:8080/api/admin/roles")
         .then(res => res.json())
         .then(data => {
             data.forEach(role => {
